@@ -1,35 +1,23 @@
-import { useState, useEffect } from "react";
+import Filter from "./components/Filter";
+import GetTodo from "./components/GetTodo";
 import "./App.css";
+import { RecoilRoot, useSetRecoilState } from "recoil";
+import { todoAtom } from "./store/atoms/Todo";
 
 function App() {
-  const [Todo, setTodo] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/todos")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("error occured status" + response.status);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setTodo((prevTodos) => [...prevTodos, ...data]);
-      })
-      .catch((err) => {
-        console.err(err);
-      });
-  }, []);
-
   return (
     <>
-      <PostTodo />
-      <GetTodo todos={Todo} />
+      <RecoilRoot>
+        <PostTodo />
+        <Filter />
+        <GetTodo />
+      </RecoilRoot>
     </>
   );
 }
 
 function PostTodo() {
-  //const [Todo, setTodo] = useState([])
+  const setTodo = useSetRecoilState(todoAtom);
 
   let todo = {};
 
@@ -49,6 +37,7 @@ function PostTodo() {
       })
       .then(() => {
         console.log("saved to the database");
+        setTodo((prevTodo) => [...prevTodo, todo]);
         todo = {};
       })
       .catch((err) => {
@@ -76,21 +65,6 @@ function PostTodo() {
       />
       <br />
       <button onClick={submitTodo}>Add</button>
-    </div>
-  );
-}
-
-function GetTodo({ todos }) {
-  return (
-    <div>
-      {todos.map((todo) => {
-        return (
-          <div key={todo._id}>
-            <h1>{todo.title}</h1>
-            <h3>{todo.description}</h3>
-          </div>
-        );
-      })}
     </div>
   );
 }

@@ -7,7 +7,8 @@ mongoose
   })
   .catch((err) => {
     console.log(
-      "There was something that went wrong while trying to connect to the database"
+      "There was something that went wrong while trying to connect to the database" +
+        err
     );
   });
 
