@@ -64,7 +64,9 @@ function PostTodo() {
         }}
       />
       <br />
-      <button onClick={submitTodo}>Add</button>
+      <button onClick={submitTodo} className="bg-red-500">
+        Add
+      </button>
     </div>
   );
 }
