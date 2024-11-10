@@ -2,7 +2,7 @@ import CheckBox from "./CheckBox";
 
 const TodoCard = ({ title, due }) => {
   return (
-    <div className="flex shadow-md rounded-md justify-between">
+    <div className="flex shadow-md rounded-md justify-between mx-auto w-3/4">
       <div className="flex items-center">
         <div>
           <CheckBox />

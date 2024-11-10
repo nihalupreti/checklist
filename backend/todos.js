@@ -16,9 +16,10 @@ router.get("/todos", (req, res) => {
 
 router.post("/todo", (req, res) => {
   const title = req.body["title"];
-  const description = req.body["description"];
+  const due = req.body["due"];
+  const status = req.body["status"];
 
-  const todo = new Todo({ title: title, description: description });
+  const todo = new Todo({ title: title, due: due, status: status });
   todo
     .save()
     .then((data) => {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { date } = require("zod");
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -14,7 +15,8 @@ mongoose
 
 const todoScheme = new mongoose.Schema({
   title: String,
-  description: String,
+  due: Date,
+  status: Boolean,
 });
 
 const Todo = mongoose.model("Todo", todoScheme);
