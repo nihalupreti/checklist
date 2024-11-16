@@ -4,6 +4,8 @@ import { useRecoilState } from "recoil";
 import { todoAtom } from "./store/atoms/Todo";
 import { useEffect } from "react";
 import { format, isToday, isYesterday } from "date-fns";
+import Greetings from "./components/Greetings";
+import AddTodo from "./components/AddTodo";
 
 function formateDate(dateString) {
   const parsedDate = new Date(dateString);
@@ -12,6 +14,10 @@ function formateDate(dateString) {
     : isYesterday(parsedDate)
     ? "Yesterday"
     : format(parsedDate, "EEEE, MMM d");
+}
+
+function getDate() {
+  return format(new Date(), "EEEE, do MMMM yyyy");
 }
 
 function App() {
@@ -38,7 +44,8 @@ function App() {
       <div className="flex">
         <SideBar name={"Nihal upreti"} pendingTodo={3} />
         <div className="bg-gray100 flex-1 flex-column">
-          <div>placeholder</div>
+          <Greetings userName={"Nihal Upreti"} date={getDate()} />
+          <AddTodo />
           {todos.map((todo) => {
             return (
               <TodoCard
